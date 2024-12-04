@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "acf/image-carousel-block",
+	"version": "0.1.0",
+	"title": "Image Carousel Block",
+	"category": "custom-block-category",
+	"icon": "cover-image",
+	"description": "Image Carousel Block",
+	"textdomain": "indiana-ctsi-blocks",
+    "keywords": [
+        "image",
+        "list"
+    ],
+    "acf": {
+        "mode": "edit",
+        "renderTemplate": "code.php"
+    },
+    "supports": {
+        "anchor": true,
+        "ariaLabel": true
+    }
+}

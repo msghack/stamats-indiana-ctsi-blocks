@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "acf/media-showcase-block",
+	"version": "0.1.0",
+	"title": "Media Showcase Block",
+	"category": "custom-block-category",
+	"icon": "playlist-video",
+	"description": "Media Showcase Block",
+
+	"textdomain": "indiana-ctsi-blocks",
+    "keywords": [
+        "media",
+        "showcase",
+        "list"
+    ],
+    "acf": {
+        "mode": "edit",
+        "renderTemplate": "code.php"
+    },
+    "supports": {
+        "anchor": true,
+        "ariaLabel": true
+    }
+}

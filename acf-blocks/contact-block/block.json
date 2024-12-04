@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "acf/contact-block",
+	"version": "0.1.0",
+	"title": "Contact Block",
+	"category": "custom-block-category",
+	"icon": "cover-image",
+	"description": "Contact Block",
+	"textdomain": "indiana-ctsi-blocks",
+    "keywords": [
+        "contact"
+    ],
+    "acf": {
+        "mode": "edit",
+        "renderTemplate": "code.php"
+    },
+    "supports": {
+        "anchor": true,
+        "ariaLabel": true
+    }
+}

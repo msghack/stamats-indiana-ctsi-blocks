@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "acf/latest-news-block",
+	"version": "0.1.0",
+	"title": "Latest News Block",
+	"category": "custom-block-category",
+	"icon": "admin-post",
+	"description": "Latest News",
+	"textdomain": "indiana-ctsi-blocks",
+    "keywords": [
+        "Latest News",
+        "News"
+    ],
+    "acf": {
+        "mode": "edit",
+        "renderTemplate": "code.php"
+    },
+    "supports": {
+        "anchor": true,
+        "ariaLabel": true
+    }
+}

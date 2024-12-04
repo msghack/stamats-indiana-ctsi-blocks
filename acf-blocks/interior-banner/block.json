@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "acf/interior-banner",
+	"version": "0.1.0",
+	"title": "Interior Banner",
+	"category": "custom-block-category",
+	"icon": "cover-image",
+	"description": "Interior Banner",
+
+	"textdomain": "indiana-ctsi-blocks",
+    "keywords": [
+        "interior",
+        "banner"
+    ],
+    "acf": {
+        "mode": "edit",
+        "renderTemplate": "code.php"
+    },
+    "supports": {
+        "anchor": true,
+        "ariaLabel": true
+    }
+}

@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "acf/button-cta-block",
+	"version": "0.1.0",
+	"title": "Button CTA Block",
+	"category": "custom-block-category",
+	"icon": "megaphone",
+	"description": "Button CTA Block",
+	"textdomain": "indiana-ctsi-blocks",
+    "keywords": [
+        "button",
+        "cta"
+    ],
+    "acf": {
+        "mode": "edit",
+        "renderTemplate": "code.php"
+    },
+    "supports": {
+        "anchor": true,
+        "ariaLabel": true
+    }
+}
