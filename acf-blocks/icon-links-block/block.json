@@ -1,13 +1,13 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 3,
-	"name": "acf/icon-links-block",
-	"version": "0.1.0",
-	"title": "Icon Links Block",
-	"category": "custom-block-category",
-	"icon": "admin-links",
-	"description": "Icon Links Block",
-	"textdomain": "indiana-ctsi-blocks",
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "acf/icon-links-block",
+  "version": "0.1.0",
+  "title": "Icon Links Block",
+  "category": "custom-block-category",
+  "icon": "admin-links",
+  "description": "Icon Links Block",
+  "textdomain": "indiana-ctsi-blocks",
     "keywords": [
         "icon",
         "link"

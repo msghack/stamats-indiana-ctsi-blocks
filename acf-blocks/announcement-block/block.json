@@ -1,14 +1,14 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 3,
-	"name": "acf/announcement-block",
-	"version": "0.1.0",
-	"title": "Announcement Block",
-	"category": "custom-block-category",
-	"icon": "megaphone",
-	"description": "Announcement Block",
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "acf/announcement-block",
+  "version": "0.1.0",
+  "title": "Announcement Block",
+  "category": "custom-block-category",
+  "icon": "megaphone",
+  "description": "Announcement Block",
 
-	"textdomain": "indiana-ctsi-blocks",
+  "textdomain": "indiana-ctsi-blocks",
     "keywords": [
         "Announcement",
         "mic"

@@ -1,0 +1,178 @@
+#!/bin/bash
+
+#
+# basic configuration
+#
+WP_ALIAS=@test
+WP_SKIP="--skip-themes --skip-plugins"
+PLUGIN_NAME=indiana-ctsi-blocks
+THEME_NAME=Avada-Child-Theme
+VHOST_BASE=/var/www/vhosts/stamats.indianactsi.org
+THEME_BASE=${VHOST_BASE}/wp-content/themes
+PROJECT_BASE=/home/dudley/Projects/CTSI/stamats/plugins
+CODE_BASE=${PROJECT_BASE}/${PLUGIN_NAME}
+
+
+         #################################################
+         #                                               #
+         #              Functions                        #
+         #                                               #
+         #################################################
+Usage()
+{
+
+  cat << END
+
+  Usage: $0 [-t] [-s] [-p]
+
+    -t  install on test. Default
+    -s  install on stage
+    -p  install on production. Not yet implmented
+
+END
+
+}
+
+
+         #################################################
+         #                                               #
+         #        Initialization and Sanity Checks       #
+         #                                               #
+         #################################################
+
+
+#
+# sort out command line options
+#
+
+OPTS=$(getopt tsp $*)
+
+if [ $? -ne 0 ]
+then
+   Usage
+   exit 1
+fi
+
+eval set -- "${OPTS}"
+IGNORE_OPT=""
+ALL_OPT="N"
+
+while [ $1 != "--" ]
+do
+   case  $1 in
+
+      -t) 
+         TEST_OPT="y" 
+         shift 1
+      ;;
+      -s)
+         STAGE_OPT="y"
+         shift 1
+      ;;
+      -p)
+         PROD_OPT="y"
+         shift 1
+      ;;
+      *)
+         Usage
+         exit 1
+      ;;
+   esac
+done
+shift
+
+if [ -z "${STAGE_OPT}" -a -z "${TEST_OPT}" -a -z "${PROD_OPT}" ]
+then
+  TEST_OPT="y"
+fi
+
+if [ "${PROD_OPT}" == "y" ]
+then
+  echo "Installation to prod not implemented yet"
+  exit;
+fi
+
+if [ "${STAGE_OPT}" == "y" ]
+then
+  echo "Installing to stage"
+  WP_ALIAS=@stamats
+  VHOST_BASE=/var/www/vhosts/stamats.indianactsi.org
+fi
+
+if [ "${TEST_OPT}" == "y" ]
+then
+  echo "Installing to test"
+  WP_ALIAS=@stamats
+  VHOST_BASE=/var/www/vhosts/stamats.indianactsi.org
+fi
+
+PLUGIN_BASE=${VHOST_BASE}/wp-content/plugins
+THEME_BASE=${VHOST_BASE}/wp-content/themes
+
+echo "Pre Install Prep"
+cd ${PROJECT_BASE}
+for EXT in php html css js
+do
+  find ${CODE_BASE}  -name \*.${EXT} -exec detab {} \;
+  #find ${PROJECT_BASE}/${THEME_NAME} -name \*.${EXT} -exec detab {} \;
+done
+
+#
+# find version
+declare -a TMP_FILES
+TMP_FILES=( $(grep -l "Plugin Name:" ${CODE_BASE}/* 2>/dev/null ) )
+if [  ${#TMP_FILES[@]} -lt 1 ]
+then
+  echo "Couldn't find project declaration file. Nothing done"
+  exit
+fi
+
+if [  ${#TMP_FILES[@]} -gt 1 ]
+then
+  echo "Found too many project declaration files. Nothing done"
+  exit
+fi
+
+PLUGIN_DEC_FILE=${TMP_FILES[0]}
+echo "Plugin Declaraion File ["$(basename ${PLUGIN_DEC_FILE})"]"
+
+VERSION=$( grep 'Version: ' ${PLUGIN_DEC_FILE} 2>/dev/null )
+VERSION=$(echo ${VERSION} | sed -n 's/^.*:\s*\([0-9\.]*\).*$/\1/p')
+echo "Version: ["${VERSION}"]"
+
+ZIP_TARGET=${PROJECT_BASE}/${PLUGIN_NAME}-${VERSION}.zip
+
+
+#rm -f ${PROJECT_BASE}/${PLUGIN_NAME}.zip
+#zip -q -r ${PLUGIN_NAME}.zip ${PLUGIN_NAME}
+
+#
+# get rid of the (frequently buggy) previous version
+sudo rm -rf ${PLUGIN_BASE}/${PLUGIN_NAME}
+
+#
+# can get away with this because its (more-or-less) my machine
+cd ${VHOST_BASE}
+#sudo chown -R apache:webadm ${VHOST_BASE}
+#sudo find ${PLUGIN_BASE} -type d -exec chmod g+rwxs {} \;
+#sudo find ${PLUGIN_BASE} -type f -exec chmod ug+rw {} \;
+
+echo "Zipping"
+cd ${PROJECT_BASE}
+rm -f ${ZIP_TARGET}
+zip -q -r ${ZIP_TARGET} ${PLUGIN_NAME}
+#zip -r ${THEME_NAME}.zip ${THEME_NAME}
+
+wp ${WP_ALIAS} ${WP_SKIP}  plugin is-installed ${PLUGIN_NAME} > /dev/null 2>&1
+
+if [ $? -eq 0 ]
+then
+  echo "Install: Updating plugin"
+else
+  echo "Install: Installing plugin"
+fi
+
+wp ${WP_ALIAS} ${WP_SKIP} plugin install --force ${ZIP_TARGET}
+wp ${WP_ALIAS} ${WP_SKIP} plugin deactivate ${PLUGIN_NAME}
+wp ${WP_ALIAS} ${WP_SKIP} plugin activate ${PLUGIN_NAME}
+wp ${WP_ALIAS} ${WP_SKIP} plugin list | grep ${PLUGIN_NAME}

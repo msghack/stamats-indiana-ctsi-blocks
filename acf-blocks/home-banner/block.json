@@ -1,13 +1,13 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 3,
-	"name": "acf/home-banner",
-	"version": "0.1.0",
-	"title": "Home Banner",
-	"category": "custom-block-category",
-	"icon": "cover-image",
-	"description": "Homepage Banner",
-	"textdomain": "indiana-ctsi-blocks",
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "acf/home-banner",
+  "version": "0.1.0",
+  "title": "Home Banner",
+  "category": "custom-block-category",
+  "icon": "cover-image",
+  "description": "Homepage Banner",
+  "textdomain": "indiana-ctsi-blocks",
     "keywords": [
         "home",
         "banner"
