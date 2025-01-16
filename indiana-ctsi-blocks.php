@@ -54,6 +54,7 @@ function create_block_indiana_ctsi_blocks_block_init()
     register_block_type(__DIR__ . '/acf-blocks/button-cta-block');
     register_block_type(__DIR__ . '/acf-blocks/news-block');
     register_block_type(__DIR__ . '/acf-blocks/contact-block');
+	  register_block_type(__DIR__ . '/acf-blocks/contact-block-2');
 }
 add_action('init', 'create_block_indiana_ctsi_blocks_block_init');
 
